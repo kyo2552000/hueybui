@@ -10,15 +10,29 @@
   --dark-color: #000;
 }
 
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
 body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   min-height: 100vh;
-  background-color: var(--dark-color);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
   overflow: hidden;
   perspective: 1000px;
   padding: 50px 0px;
+  position: relative;
 }
 
 .night {
@@ -29,13 +43,87 @@ body {
   width: 100%;
   height: 100%;
   filter: blur(0.1vmin);
+  overflow: hidden;
+}
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--twinkle-duration, 1s) infinite var(--twinkle-delay, 0s);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+.hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #ff4081;
+  transform: rotate(45deg);
+  animation: floatUp var(--float-duration, 4s) linear forwards;
+  opacity: 0.8;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: #ff4081;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  left: -10px;
+}
+
+.heart::after {
+  top: -10px;
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073; }
+  50% { text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6; }
 }
 
 .happy-woman-day {
-  color: white;
+  color: #fff;
   font-size: 50px;
   position: fixed;
   top: 80px;
+  animation: glow 2s ease-in-out infinite;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073;
 }
 
 .flowers {
@@ -500,6 +588,7 @@ body {
   border-left: 2vmin solid #079097;
   background-image: linear-gradient(to bottom, transparent, var(--dark-color) 60%);
   -webkit-mask-image: linear-gradient(to top, transparent 30%, #079097 60%);
+  mask-image: linear-gradient(to top, transparent 30%, #079097 60%);
 }
 .flower__g-right--1 {
   animation: flower-g-right-ans 2.5s linear infinite;
@@ -657,6 +746,7 @@ body {
   border-top-left-radius: 100%;
   border-left: 2vmin solid #079097;
   -webkit-mask-image: linear-gradient(to top, transparent 25%, #079097 50%);
+  mask-image: linear-gradient(to top, transparent 25%, #079097 50%);
   position: relative;
   z-index: 1;
 }
@@ -670,6 +760,7 @@ body {
   box-shadow: inset 0 2px 1vmin hsla(184, 97%, 58%, 0.2);
   background-image: linear-gradient(to bottom left, transparent, var(--dark-color) 98%), linear-gradient(to bottom right, #23f0ff 45%, transparent 50%, transparent);
   -webkit-mask-image: linear-gradient(135deg, #159faa 40%, transparent 50%, transparent);
+  mask-image: linear-gradient(135deg, #159faa 40%, transparent 50%, transparent);
 }
 .flower__g-fr__leaf--1 {
   left: 20vmin;
@@ -761,6 +852,7 @@ body {
 }
 .long-g--1 .leaf {
   -webkit-mask-image: linear-gradient(to top, transparent 40%, #079097 80%) !important;
+  mask-image: linear-gradient(to top, transparent 40%, #079097 80%) !important;
 }
 .long-g--1 .leaf--1 {
   --w: 5vmin;
@@ -776,6 +868,7 @@ body {
 }
 .long-g--2 .leaf, .long-g--3 .leaf {
   -webkit-mask-image: linear-gradient(to top, transparent 50%, #079097 80%) !important;
+  mask-image: linear-gradient(to top, transparent 50%, #079097 80%) !important;
 }
 .long-g--2 .leaf--1, .long-g--3 .leaf--1 {
   left: -1vmin;
@@ -787,6 +880,7 @@ body {
 }
 .long-g--3 .leaf {
   -webkit-mask-image: linear-gradient(to top, transparent 40%, #079097 80%) !important;
+  mask-image: linear-gradient(to top, transparent 40%, #079097 80%) !important;
 }
 .long-g--4 {
   left: 25vmin;
@@ -796,6 +890,7 @@ body {
 }
 .long-g--4 .leaf {
   -webkit-mask-image: linear-gradient(to top, transparent 50%, #079097 80%) !important;
+  mask-image: linear-gradient(to top, transparent 50%, #079097 80%) !important;
 }
 .long-g--5 {
   left: 42vmin;
@@ -828,6 +923,7 @@ body {
   border-top-left-radius: 100%;
   border-left: 2vmin solid var(--c);
   -webkit-mask-image: linear-gradient(to top, transparent 20%, var(--dark-color));
+  mask-image: linear-gradient(to top, transparent 20%, var(--dark-color));
   transform-origin: bottom center;
 }
 .long-g .leaf--0 {

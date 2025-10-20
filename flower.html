@@ -5,12 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" type="text/javascript"></script><title>Happy Woman's day 20/10</title>
+    <script src="main.js" type="text/javascript"></script>
+    <script>
+      // Create stars
+      const starsContainer = document.querySelector('.stars');
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.setProperty('--twinkle-duration', `${Math.random() * 3 + 1}s`);
+        star.style.setProperty('--twinkle-delay', `${Math.random() * 3}s`);
+        starsContainer.appendChild(star);
+      }
+
+      // Create floating hearts
+      const heartsContainer = document.querySelector('.hearts');
+      function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.bottom = '-20px';
+        heart.style.setProperty('--float-duration', `${Math.random() * 2 + 3}s`);
+        heartsContainer.appendChild(heart);
+        
+        // Remove heart after animation
+        heart.addEventListener('animationend', () => heart.remove());
+      }
+
+      // Create new hearts periodically
+      setInterval(createHeart, 300);
+    </script><title>Happy Woman's day 20/10</title>
 </head>
     
 <body class="not-loaded">
-    <div class="night"></div>
-    <div class="happy-woman-day">𝓗𝓪𝓹𝓹𝔂 𝔀𝓸𝓶𝓮𝓷'𝓼 𝓭𝓪𝔂 2️⃣0️⃣/1️⃣0️⃣</div>
+    <div class="night">
+      <div class="stars"></div>
+    </div>
+    <div class="hearts"></div>
+    <div class="happy-woman-day">𝓗𝓪𝓹𝓹𝔂 𝔀𝓸𝓶𝓮𝓷'𝓼 𝓭𝓪𝔂 𝟐𝟎/𝟏𝟎</div>
     <div class="flowers">
       <div class="flower flower--1">
         <div class="flower__leafs flower__leafs--1">
